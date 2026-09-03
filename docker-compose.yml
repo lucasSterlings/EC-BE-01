@@ -13,6 +13,7 @@ services:
       RT_LIMIT: ${RT_LIMIT}
     depends_on:
       - mongodb
+    restart: on-failure
 
   mongodb:
     image: mongo:8.0
@@ -23,6 +24,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
     volumes:
       - mongodb-data:/data/db
+    restart: unless-stopped
 
 volumes:
   mongodb-data:
