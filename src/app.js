@@ -3,6 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import { Http } from "./config/config.js";
+import util from "./util/util.js";
 
 const port = 3000;
 const app = express();
@@ -35,6 +36,7 @@ app.use((_, res) => {
 });
 app.use((err, _, res, __) => {
   console.log(err.message || err);
+  util.Error("request-error", err.message || err);
   return res.status(err.statusCode || Http.STATUS.INTERNAL_ERROR).json({
     message: err.message || "Internal Server Error",
     details: err || {},
@@ -43,10 +45,10 @@ app.use((err, _, res, __) => {
 
 function startApp() {
   const server = app.listen(port, () => {
-    return console.log(`App running on port ::: ${port}`);
+    return util.Log("app", `App running on port ::: ${port}`);
   });
   server.on("error", (e) => {
-    return console.errpr(e.message || e);
+    return util.Error("app", e.message || e);
   });
 }
 
