@@ -4,6 +4,7 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import { Http } from "./config/config.js";
 import util from "./util/util.js";
+import apiRouter from "./apiRouter.js";
 
 const port = 3000;
 const app = express();
@@ -22,7 +23,7 @@ app.use(
     },
   }),
 );
-// app.use('/api', apiRouter)   # Load API Router.
+app.use("/api", apiRouter);
 app.get("/health", (_, res) => {
   return res.status(Http.STATUS.OK).json({
     message: "Welcome to Express server.",
