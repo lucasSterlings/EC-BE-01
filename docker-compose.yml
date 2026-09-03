@@ -4,7 +4,6 @@ services:
     ports:
       - "3000:3000"
     environment:
-      PORT: ${PORT}
       DB_URI: ${DB_URI}
       DB_NAME: ${DB_NAME}
       SERVER_SELECTION_TIMEOUT_MS: ${SERVER_SELECTION_TIMEOUT_MS}

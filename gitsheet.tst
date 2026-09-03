@@ -1,31 +1,11 @@
 What did I change?
-        │
-        ├── 🆕 Added new functionality?
-        │       └── feat
-        │
-        ├── 🐛 Fixed something broken?
-        │       └── fix
-        │
-        ├── ♻️ Restructured code without changing behavior?
-        │       └── refactor
-        │
-        ├── 🧪 Added or changed tests?
-        │       └── test
-        │
-        ├── 📚 Changed documentation?
-        │       └── docs
-        │
-        ├── 🔧 Changed configuration/tooling/maintenance?
-        │       └── chore
-        │
-        ├── ⚡ Improved performance?
-        │       └── perf
-        │
-        ├── 🎨 Only formatting/code style?
-        │       └── style
-        │
-        ├── 📦 Changed build/package system?
-        │       └── build
-        │
-        └── 🔄 Changed CI/CD pipeline?
-                └── ci
+🆕 feat: Added new functionality?
+🐛 fix: Fixed something broken?
+♻️ refactor: Restructured code without changing behavior?
+🧪 test: Added or changed tests?
+📚 docs: Changed documentation?
+🔧 chore: Changed configuration/tooling/maintenance?
+⚡ perf: Improved performance?
+🎨 style: Only formatting/code style?
+📦 build: Changed build/package system?
+🔄 ci: Changed CI/CD pipeline?
