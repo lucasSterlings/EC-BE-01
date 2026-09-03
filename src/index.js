@@ -3,6 +3,7 @@ import "./config/mongoose.js";
 import app from "./app.js";
 import util from "./util/util.js";
 import mongoose from "mongoose";
+import accountRepositoryTest from "./test/account.repository.test.js";
 
 mongoose
   .connect(process.env.DB_URI, {
@@ -22,4 +23,8 @@ mongoose
       util.Log("system", "Restarting in 2s...");
       setTimeout(() => process.exit(1), 2000);
     });
+  })
+  .finally(async () => {
+    console.log("CONDUCTING TEST...");
+    await accountRepositoryTest();
   });

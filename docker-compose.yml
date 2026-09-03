@@ -13,7 +13,7 @@ services:
       RT_LIMIT: ${RT_LIMIT}
     depends_on:
       - mongodb
-    restart: on-failure
+    # restart: on-failure
 
   mongodb:
     image: mongo:8.0.12
