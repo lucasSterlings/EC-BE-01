@@ -1,0 +1,29 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: ${PORT}
+      DB_URI: ${DB_URI}
+      DB_NAME: ${DB_NAME}
+      SERVER_SELECTION_TIMEOUT_MS: ${SERVER_SELECTION_TIMEOUT_MS}
+      SOCKET_SELECTION_TIMEOUT_MS: ${SOCKET_SELECTION_TIMEOUT_MS}
+      BCRYPT_SALT_ROUNDS: ${BCRYPT_SALT_ROUNDS}
+      RT_WINDOW_MS: ${RT_WINDOW_MS}
+      RT_LIMIT: ${RT_LIMIT}
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    volumes:
+      - mongodb-data:/data/db
+
+volumes:
+  mongodb-data:
