@@ -4,6 +4,7 @@ import app from "./app.js";
 import util from "./util/util.js";
 import mongoose from "mongoose";
 import accountRepositoryTest from "./test/account.repository.test.js";
+import accountServiceTest from "./test/account.service.test.js";
 
 mongoose
   .connect(process.env.DB_URI, {
@@ -26,5 +27,6 @@ mongoose
   })
   .finally(async () => {
     console.log("CONDUCTING TEST...");
-    await accountRepositoryTest();
+    // await accountRepositoryTest();
+    await accountServiceTest()
   });

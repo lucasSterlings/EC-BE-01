@@ -11,7 +11,7 @@ export const createAccount = ({ username, email, password }) => {
   return Account.create({ username, email, password });
 };
 export const deleteAccount = (id) => Account.findByIdAndDelete(id);
-export const exists = ({ username, email, _id }) =>
+export const exists = ({ username, email }) =>
   Account.exists({
-    $or: [{ _id }, { username }, { email }],
+    $or: [{ username }, { email }],
   });
