@@ -12,8 +12,8 @@ function getLogger(loggerType) {
   return (...args) => LOGGERS[loggerType](...args);
 }
 
-function repeater(value) {
-  return value + ".".repeat(30 - value.length) + ":";
+function repeater(value, repeat_value = 30) {
+  return value + ".".repeat(repeat_value - value.length) + ":";
 }
 
 function display(loggerType) {
@@ -31,6 +31,9 @@ function display(loggerType) {
         break;
       case "request-error":
         logger(repeater("Request-Error"), ...args);
+        break;
+      case "request":
+        logger(repeater("Request", 10), ...args);
         break;
       default:
         logger(...args);

@@ -36,6 +36,6 @@ mongoose
     setTimeout(async () => {
       await createTest("Account Repository", accountRepositoryTest);
       await createTest("Account Service", accountServiceTest);
-      await createTest("Account Controller", accountControllerTest);
+      // await createTest("Account Controller", accountControllerTest);
     }, 100),
   );

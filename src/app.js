@@ -23,6 +23,17 @@ app.use(
     },
   }),
 );
+app.use((req, res, next) => {
+  const method = req.method;
+  const url = req.originalUrl;
+  const ip = req.ip;
+  const userAgent = req.headers["user-agent"];
+  util.Log(
+    "request",
+    `${req.method}${" ".repeat(10 - method.length)} -- ${req.originalUrl}${" ".repeat(70 - url.length)} -- ${req.ip}${" ".repeat(30 - ip.length)} -- ${req.headers["user-agent"]}`,
+  );
+  return next();
+});
 app.use("/api", apiRouter);
 app.get("/health", (_, res) => {
   return res.status(Http.STATUS.OK).json({
