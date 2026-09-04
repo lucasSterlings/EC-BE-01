@@ -1,5 +1,5 @@
 import accountValidator from "../account/account.validator.js";
-
+import * as AccountController from "../account/account.controller.js";
 import { Router } from "express";
 import { Http } from "../config/config.js";
 
@@ -11,7 +11,20 @@ accountRouter.get("/test", (_, res) => {
   });
 });
 
-accountRouter.route("/").post(accountValidator.Create);
-accountRouter.post("/auth", accountValidator.Authenticate);
+accountRouter
+  .route("/:id")
+  .get(AccountController.fetchAccount)
+  .delete(AccountController.deleteAccount);
+
+accountRouter
+  .route("/")
+  .post(accountValidator.Create, AccountController.createAccount)
+  .get(AccountController.fetchAllAccounts);
+
+accountRouter.post(
+  "/auth",
+  accountValidator.Authenticate,
+  AccountController.authAccount,
+);
 
 export default accountRouter;

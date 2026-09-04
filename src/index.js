@@ -5,6 +5,7 @@ import util from "./util/util.js";
 import mongoose from "mongoose";
 import accountRepositoryTest from "./test/account.repository.test.js";
 import accountServiceTest from "./test/account.service.test.js";
+import accountControllerTest from "./test/account.controller.test.js";
 
 mongoose
   .connect(process.env.DB_URI, {
@@ -25,8 +26,19 @@ mongoose
       setTimeout(() => process.exit(1), 2000);
     });
   })
-  .finally(async () => {
-    console.log("CONDUCTING TEST...");
-    // await accountRepositoryTest();
-    await accountServiceTest()
-  });
+  .finally(() =>
+    setTimeout(async () => {
+      util.Log("system", "=".repeat(50))
+      util.Log("system", "CONDUCTING TEST: Account Repository");
+      util.Log("system", "=".repeat(50))
+      await accountRepositoryTest();
+      util.Log("system", "=".repeat(50))
+      util.Log('system', 'CONDUCTING TEST: Account Service.')
+      util.Log("system", "=".repeat(50))
+      await accountServiceTest()
+      util.Log("system", "=".repeat(50))
+      util.Log('system', 'CONDUCTING TEST: Account Controller.')
+      util.Log("system", "=".repeat(50))
+      await accountControllerTest();
+    }, 1000),
+  );

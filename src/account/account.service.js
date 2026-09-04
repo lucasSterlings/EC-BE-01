@@ -43,9 +43,7 @@ export const authAccount = async (email, password) => {
   if (!accountExist) {
     throw util.ErrorResponse.Throw.NotFound("Account not found.");
   }
-  if (
-    !(await AccountRepo.authAccountById(accountExist._id.toString(), password))
-  ) {
+  if (!(await AccountRepo.authAccountByEmail(email, password))) {
     throw util.ErrorResponse.Throw.Unauthorized("Incorrect credentials.");
   }
   return (

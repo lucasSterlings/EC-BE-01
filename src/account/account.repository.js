@@ -2,9 +2,9 @@ import Account from "./account.model.js";
 
 export const fetchAllAccounts = () => Account.find();
 export const fetchAccountById = (id) => Account.findById(id);
-export const authAccountById = async (id, password) => {
+export const authAccountByEmail = async (email, password) => {
   return await (
-    await Account.findById(id).select("+password")
+    await Account.findOne({ email }).select("+password")
   ).comparePassword(password);
 };
 export const createAccount = ({ username, email, password }) => {
