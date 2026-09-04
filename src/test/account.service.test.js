@@ -67,10 +67,18 @@ export default async () => {
   const result = await util.Test.conductTest(3, "Account Exists", () =>
     AccountService.exists({ username }),
   );
+  const accountID = result._id.toString()
   await util.Test.conductTest(4, "Fetching Accounts", () =>
-    AccountService.fetchAccountById(result._id.toString()),
+    AccountService.fetchAccountById(accountID),
   );
-  await util.Test.conductTest(5, "Deleting Account", () =>
-    AccountService.deleteAccount(result._id.toString()),
+
+  await util.Test.conductTest(5, "Upgrade Account", () =>
+    AccountService.upgradeAccount(accountID),
+  );
+  await util.Test.conductTest(6, "Downgrade Account", () =>
+    AccountService.downgradeAccount(accountID),
+  );
+  await util.Test.conductTest(7, "Deleting Account", () =>
+    AccountService.deleteAccount(accountID),
   );
 };

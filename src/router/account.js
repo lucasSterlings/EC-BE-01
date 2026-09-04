@@ -27,4 +27,7 @@ accountRouter.post(
   AccountController.authAccount,
 );
 
+accountRouter.patch("/upgrade/:id", AccountController.upgradeAccount);
+accountRouter.patch("/downgrade/:id", AccountController.downgradeAccount);
+
 export default accountRouter;

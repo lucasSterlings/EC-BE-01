@@ -7,6 +7,12 @@ import accountRepositoryTest from "./test/account.repository.test.js";
 import accountServiceTest from "./test/account.service.test.js";
 import accountControllerTest from "./test/account.controller.test.js";
 
+function createTest(testTitle, testFunction) {
+  util.Log("system", "=".repeat(50));
+  util.Log("system", `CONDUCTING TEST: ${testTitle}`);
+  util.Log("system", "=".repeat(50));
+  return testFunction();
+}
 mongoose
   .connect(process.env.DB_URI, {
     dbName: process.env.DB_NAME,
@@ -28,17 +34,8 @@ mongoose
   })
   .finally(() =>
     setTimeout(async () => {
-      util.Log("system", "=".repeat(50))
-      util.Log("system", "CONDUCTING TEST: Account Repository");
-      util.Log("system", "=".repeat(50))
-      await accountRepositoryTest();
-      util.Log("system", "=".repeat(50))
-      util.Log('system', 'CONDUCTING TEST: Account Service.')
-      util.Log("system", "=".repeat(50))
-      await accountServiceTest()
-      util.Log("system", "=".repeat(50))
-      util.Log('system', 'CONDUCTING TEST: Account Controller.')
-      util.Log("system", "=".repeat(50))
-      await accountControllerTest();
-    }, 1000),
+      await createTest("Account Repository", accountRepositoryTest);
+      await createTest("Account Service", accountServiceTest);
+      await createTest("Account Controller", accountControllerTest);
+    }, 100),
   );

@@ -15,8 +15,7 @@ export const createAccount = async (req, res, next) => {
 
 export const deleteAccount = async (req, res, next) => {
   try {
-    const id = req.params.id;
-    await AccountService.deleteAccount(id);
+    await AccountService.deleteAccount(req.params.id);
     return res.status(Http.STATUS.NO_CONTENT).send();
   } catch (error) {
     return next(error);
@@ -50,10 +49,33 @@ export const fetchAllAccounts = async (req, res, next) => {
 
 export const fetchAccount = async (req, res, next) => {
   try {
-    const id = req.params.id;
-    const account = await AccountService.fetchAccountById(id);
+    const account = await AccountService.fetchAccountById(req.params.id);
     return res.status(Http.STATUS.OK).json({
       message: "Account fetched.",
+      account,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const upgradeAccount = async (req, res, next) => {
+  try {
+    const account = await AccountService.upgradeAccount(req.params.id);
+    return res.status(Http.STATUS.OK).json({
+      message: "Account upgraded.",
+      account,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const downgradeAccount = async (req, res, next) => {
+  try {
+    const account = await AccountService.downgradeAccount(req.params.id);
+    return res.status(Http.STATUS.OK).json({
+      message: "Account downgraded.",
       account,
     });
   } catch (error) {

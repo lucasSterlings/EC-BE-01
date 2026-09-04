@@ -21,8 +21,11 @@ async function makeRequest(url, method, data) {
         break;
       case "delete":
         response = await fetch(url, {
-          method: "delete",
+          method: "DELETE",
         });
+        break;
+      case "patch":
+        response = await fetch(url, { method: "PATCH" });
         break;
       default:
         return null;
@@ -78,7 +81,21 @@ export default async () => {
       }),
     true,
   );
-  await util.Test.conductTest(5, "Delete account", () =>
-    makeRequest(`${url}/${accountID}`, "delete"),
+  await util.Test.conductTest(
+    5,
+    "Upgrade account",
+    () => makeRequest(`${url}/upgrade/${accountID}`, "patch"),
+    true,
+  );
+  await util.Test.conductTest(
+    6,
+    "Downgrade account",
+    () => makeRequest(`${url}/downgrade/${accountID}`, "patch"),
+    true,
+  );
+  await util.Test.conductTest(
+    7,
+    "Delete account",
+    () => makeRequest(`${url}/${accountID}`, "delete"),
   );
 };

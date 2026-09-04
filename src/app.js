@@ -14,8 +14,8 @@ app.use(cors());
 app.use(helmet());
 app.use(
   rateLimit({
-    windowMs: 900000,
-    limit: 5,
+    windowMs: util.Dotenv.parseEnvInt(process.env.RT_WINDOW_MS, 1800000),
+    limit: util.Dotenv.parseEnvInt(process.env.RT_LIMIT, 100),
     handler: (_, res) => {
       return res.status(Http.STATUS.TOO_MANY_REQUESTS).json({
         message: "Too many requests. Please try again later.",

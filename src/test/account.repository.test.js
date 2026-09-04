@@ -52,22 +52,33 @@
 import * as AccountRepo from "../account/account.repository.js";
 import util from "../util/util.js";
 
-
 export default async () => {
   const username = "username",
     email = "email@email.com",
     password = "password";
-  await util.Test.conductTest(1, "Fetching All Accounts", AccountRepo.fetchAllAccounts);
+  await util.Test.conductTest(
+    1,
+    "Fetching All Accounts",
+    AccountRepo.fetchAllAccounts,
+  );
   await util.Test.conductTest(2, "Creating account", () =>
     AccountRepo.createAccount({ username, email, password }),
   );
   const result = await util.Test.conductTest(3, "Account Exists", () =>
     AccountRepo.exists({ username }),
   );
+
+  const accountID = result._id.toString();
   await util.Test.conductTest(4, "Fetching Accounts", () =>
-    AccountRepo.fetchAccountById(result._id.toString()),
+    AccountRepo.fetchAccountById(accountID),
   );
-  await util.Test.conductTest(5, "Deleting Account", () =>
-    AccountRepo.deleteAccount(result._id.toString()),
+  await util.Test.conductTest(5, "Upgrade Account", () =>
+    AccountRepo.upgradeAccount(accountID),
+  );
+  await util.Test.conductTest(6, "Downgrade Account", () =>
+    AccountRepo.downgradeAccount(accountID),
+  );
+  await util.Test.conductTest(7, "Deleting Account", () =>
+    AccountRepo.deleteAccount(accountID),
   );
 };
